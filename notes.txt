@@ -1,0 +1,27 @@
+Found this from: https://askubuntu.com/questions/795189/how-to-clone-a-users-settingsterm
+
+carmanaughty
+12 points ·
+1 year ago
+
+If your extensions are not from installed packages (not installed through your package manager) then they'll be located in:
+
+~/.local/share/gnome-shell/extensions/
+
+You can easily back those up and restore them to the same folder on another PC. As for the settings, you can export them from dconf:
+
+dconf dump /org/gnome/shell/extensions/ > extension-settings.dconf
+
+Although the file extension doesn't matter really, and then on the PC you're restoring them to, use:
+
+dconf load /org/gnome/shell/extensions/ < extension-settings.dconf
+
+FYI, you can actually use:
+
+dconf dump / > all-dconf.dconf
+
+To export all changed settings from the dconf/gsettings storage if you want and then import them on a new install via:
+
+dconf load / < all-dconf.dconf
+
+If you want to, you can open the file and look at the settings first, since it's just a text file, keeping only the settings you want backed up.
